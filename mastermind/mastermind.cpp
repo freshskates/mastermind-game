@@ -34,17 +34,19 @@ bool play(int game) {
     cout << "(For Testing) Cheat Code: " << cpu_key1 << cpu_key2 << cpu_key3 << cpu_key4 << endl;
     bool firsthalf, secondhalf, overall;
     char again; 
-    int count = 0;
-    
+    int count = 0; 
+
+    cout << "Game #" << game + 1 << endl;
+    cout << "Welcome to MasterMind, the rules are simply try to guess the master code" << endl << "The code is only 4 Colors, and they consist of blue, green, red and white" << endl << "B) Blue" << endl << "G) Green" << endl << "R) Red" << endl << "W) White" << endl;
+    cout << "Make sure to enter each color with no space in between!" << endl;
+    cout << "You only get 10 attempts! Have fun and good luck!" << endl;
+
+    cout << "Press Enter to continue: " << endl;
+    cin.ignore(1000, 10);
 
     do 
     {
-        cout << "Game #" << game + 1 << endl;
-        cout << "Welcome to MasterMind, the rules are simply try to guess the master code" << endl << "The code is only 4 Colors, and they consist of blue, green, red and white" << endl << "B) Blue" << endl << "G) Green" << endl << "R) Red" << endl << "W) White" << endl;
-        cout << "Make sure to enter each color with no space in between!" << endl;
         string guess;
-        cout << "Press Enter to continue: " << endl;
-        cin.ignore(1000, 10);
         while (validate(guess) == false) 
         {
             cout << "Try #" << count + 1 << " | Your guess: ";
