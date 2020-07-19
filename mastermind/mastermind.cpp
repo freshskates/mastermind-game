@@ -47,8 +47,11 @@ bool play(int game) {
     do 
     {
         string guess;
+        cout << "Try #" << count + 1 << " | Your guess: ";
+        cin >> guess;
         while (validate(guess) == false) 
         {
+            cout << "Invalid Entry, Please try again." << endl;
             cout << "Try #" << count + 1 << " | Your guess: ";
             cin >> guess;
 
