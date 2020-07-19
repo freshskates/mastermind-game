@@ -2,9 +2,11 @@
 using namespace std;
 #include <cstdlib>
 #include <ctime>
+#include <fstream> 
 bool play(int game);
 bool validate(string guess);
 char convert(int num);
+const int MAX = 100;
 char convert(int num) 
 {
     char color;
@@ -27,16 +29,50 @@ bool validate(string guess)
     }
 }
 bool play(int game) {
+ 
+    ifstream fin; 
+    ofstream fout;
+    string inputfile = "scores.txt";
+    string outputfile = "scores.txt";
+    int lcount = 0;
+    int storage[MAX];
+    fin.open(inputfile);
+    while (fin.good()) {
+        int line; 
+        fin >> line;
+        storage[lcount] = line; 
+        lcount++;
+    }
+    fin.close();
+    int temp, max = -999, min = 999;
+
+    for (int i = 0; i < lcount; i++) {
+
+        if (storage[i] < min) {
+
+            min = storage[i];
+        }
+
+        if (storage[i] > max) {
+            max = storage[i];
+
+        }
+
+    }
+
+
     char cpu_key1 = convert(rand() % 4);
     char cpu_key2 = convert(rand() % 4);
     char cpu_key3 = convert(rand() % 4);
     char cpu_key4 = convert(rand() % 4);
-    cout << "(For Testing) Cheat Code: " << cpu_key1 << cpu_key2 << cpu_key3 << cpu_key4 << endl;
+    cout << "(For Testing) Cheat Code: " << cpu_key1 << cpu_key2 << cpu_key3 << cpu_key4 << endl; //used this to troubleshoot, was troubleshooting for about 2 hours because of a dumb mistake
     bool firsthalf, secondhalf, overall;
     char again; 
     int count = 0; 
 
-    cout << "Game #" << game + 1 << endl;
+    cout << "Game #" << game + 1 << endl << endl;
+    cout << "The best score to date is: " << min << endl; //its min because lower numbers means less times to guess
+    cout << "Lowest Score: " << max << endl; 
     cout << "Welcome to MasterMind, the rules are simply try to guess the master code" << endl << "The code is only 4 Colors, and they consist of blue, green, red and white" << endl << "B) Blue" << endl << "G) Green" << endl << "R) Red" << endl << "W) White" << endl;
     cout << "Make sure to enter each color with no space in between!" << endl;
     cout << "You only get 10 attempts! Have fun and good luck!" << endl;
@@ -77,6 +113,19 @@ bool play(int game) {
 
     } while (overall == false);
     if (count == 10) cout << "You had 10 chances and YOU LOST!" << endl;
+
+    
+    storage[lcount] = count;
+    lcount++;
+
+
+    fout.open(outputfile);
+    for (int i = 0; i < lcount; i++) {
+        fout << storage[i] << endl;
+    }
+    fout.close();
+
+
 
     cout << "Play again? [Y/N]: ";
     cin >> again;
